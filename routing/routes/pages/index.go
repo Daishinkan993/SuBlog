@@ -35,7 +35,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	tmpl, err := template.ParseFiles("\\routing\\routes\\pages\\index.html") // Replace with the path to your HTML template file
+	tmpl, err := template.ParseFiles("./routing/routes/pages/index.html") // Replace with the path to your HTML template file
 	if err != nil {
 		fmt.Println("Error:", err)
 		return
