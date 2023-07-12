@@ -25,6 +25,8 @@ func Init(database *mongo.Database) *mux.Router {
 	}).Methods("DELETE")
 
 	r.HandleFunc("/post/{id}", pages.Post).Methods("GET")
+	r.HandleFunc("/create", pages.Create).Methods("GET")
+	r.HandleFunc("/", pages.Index).Methods("GET")
 
 	return r
 }

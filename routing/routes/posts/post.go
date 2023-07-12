@@ -48,5 +48,12 @@ func Post(w http.ResponseWriter, r *http.Request, database *mongo.Database) {
 		log.Fatal(err)
 	}
 
+	post.ViewCount += 1
+
+	_, err = collection.UpdateOne(context.Background(), bson.M{"_id": objectID}, bson.M{"$inc": bson.M{"viewCount": 1}})
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	respond.NewResponse(w).Ok(post)
 }
