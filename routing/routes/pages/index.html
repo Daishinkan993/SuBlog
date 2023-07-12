@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+<div class="container mx-auto p-4">
+    {{ range .Posts }}
+    <div class="bg-white rounded-lg shadow mb-4">
+        <div class="p-4">
+            <a href="/post/{{ .ID.Hex }}" class="text-2xl font-bold mb-2">{{ .Title }}</a>
+            <div class="flex items-center mb-2">
+                <div class="w-8 h-8 rounded-full bg-gray-300 mr-2"></div>
+                <span class="text-gray-600 text-sm">{{ .Author.Hex }}</span>
+                <span class="text-gray-600 text-sm mx-2">•</span>
+                <span class="text-gray-600 text-sm" data-time>{{ .Timestamp }}</span>
+            </div>
+        </div>
+        <div class="flex justify-between p-4 border-t">
+            <div class="flex items-center">
+                <button class="flex items-center text-gray-600 mr-4"
+                        onmouseover="showVotes({{ .Upvotes }}, {{ .Downvotes }})" onmouseout="hideVotes()">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20"
+                         fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 15a7 7 0 100-14 7 7 0 000 14z"
+                              clip-rule="evenodd"/>
+                    </svg>
+                    <span class="text-sm" id="upvotes">{{ .Upvotes }}</span>
+                </button>
+                <button class="flex items-center text-gray-600 mr-4"
+                        onmouseover="showVotes({{ .Upvotes }}, {{ .Downvotes }})" onmouseout="hideVotes()">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20"
+                         fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 15a7 7 0 100-14 7 7 0 000 14z"
+                              clip-rule="evenodd"/>
+                    </svg>
+                    <span class="text-sm" id="downvotes">{{ .Downvotes }}</span>
+                </button>
+                <div>
+                    <span class="text-gray-600 text-sm">Total Votes:</span>
+                    <span class="text-sm" id="totalvotes"></span>
+                </div>
+            </div>
+            <div>
+                <span class="text-sm">{{ .ViewCount }}</span>
+                <span class="text-gray-600 text-sm"> Просмотров</span>
+            </div>
+        </div>
+    </div>
+    {{ end }}
+</div>
+<script>
+    function showVotes(upvotes, downvotes) {
+        // Логика показа голосов
+    }
+
+    function hideVotes() {
+        // Логика скрытия голосов
+    }
+
+    function formatTimestamp(timestamp) {
+        var date = new Date(timestamp * 1000);
+        var options = {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            hour: "numeric",
+            minute: "numeric",
+            second: "numeric",
+            weekday: "long" // День недели
+        };
+        var formatter = new Intl.DateTimeFormat("ru-RU", options);
+        var formattedDate = formatter.format(date);
+        return formattedDate;
+    }
+
+    document.querySelectorAll("[data-time]").forEach(timestampElement => {
+        var timestamp = parseInt(timestampElement.innerText);
+        timestampElement.innerText = formatTimestamp(timestamp);
+    })
+
+
+</script>
+</body>
+</html>
